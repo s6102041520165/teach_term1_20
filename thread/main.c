@@ -20,37 +20,20 @@ void *myThreadFun(void *vargp)
 	++g;
 
 	// Print the argument, static and global variables
-	printf("Thread ID: %d, Static: %d, Global: %d\n", *myid, ++s, ++g);
+	//printf("Thread ID: %d, Static: %d, Global: %d\n", *myid, ++s, ++g);
+	printf("G = %d\n", g);
 }
 
-// The function to be executed by all threads
-void *myThreadFun2(void *vargp)
-{
-	// Store the value argument passed to this thread
-	int *myid = (int *)vargp;
-
-	// Let us create a static variable to observe its changes
-	static int s = 0;
-
-	// Change static and global variables
-	++s;
-	++g;
-
-	// Print the argument, static and global variables
-	printf("Thread ID: %d, Static: %d, Global: %d\n", *myid, ++s, ++g);
-}
 
 int main()
 {
 	int i;
 	pthread_t tid1;
-	pthread_t tid2;
 
 	// Let us create three threads
 	for (i = 0; i < 3; i++)
 	{
 		pthread_create(&tid1, NULL, myThreadFun, (void *)&tid1);
-		pthread_create(&tid2, NULL, myThreadFun2, (void *)&tid2);
 	}
 	pthread_join(tid1, NULL);
 
